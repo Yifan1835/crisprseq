@@ -3,7 +3,7 @@ process CRISPRDECODE_VALIDATE_LIBRARY {
     label 'process_single'
 
     conda "conda-forge::python=3.11.4"
-    container 'python:3.11.4-slim-bookworm@sha256:17d62d681d9ecef20aae6c6605e9cf83b0ba3dc247013e2f43e1b5a045ad4901'
+    container 'docker.io/library/python:3.11.4-slim-bookworm@sha256:17d62d681d9ecef20aae6c6605e9cf83b0ba3dc247013e2f43e1b5a045ad4901'
 
     input:
     path library
