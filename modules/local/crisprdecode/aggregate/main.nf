@@ -3,7 +3,7 @@ process CRISPRDECODE_AGGREGATE {
     label 'process_single'
 
     conda "conda-forge::python=3.11.4"
-    container 'docker.io/library/python:3.11.4-slim-bookworm@sha256:17d62d681d9ecef20aae6c6605e9cf83b0ba3dc247013e2f43e1b5a045ad4901'
+    container 'docker.io/library/python:3.11.4-bookworm@sha256:d7df302a1bcf4db50650da79c174f5d8d973fa4753e0275696644c5bdb477c00'
 
     input:
     path sample_counts

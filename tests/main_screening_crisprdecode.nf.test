@@ -43,7 +43,13 @@ nextflow_workflow {
                 { assert file("$outputDir/crisprdecode/assignment_summary.tsv").exists() },
                 { assert file("$outputDir/crisprdecode/library_recovery.tsv").exists() },
                 { assert file("$outputDir/multiqc/multiqc_report.html").exists() },
-                { assert snapshot(file("$outputDir/pipeline_info/nf_core_crisprseq_software_mqc_versions.yml")).match() }
+                {
+                    def versions = path("$outputDir/pipeline_info/nf_core_crisprseq_software_mqc_versions.yml").yaml
+                    assert versions.Workflow['nf-core/crisprseq']
+                    assert versions.Workflow.Nextflow
+                    // Compare software versions as data; workflow metadata can vary across revisions/runtimes.
+                    assert snapshot(versions.findAll { name, value -> name != 'Workflow' }).match()
+                }
             )
         }
     }
@@ -78,7 +84,13 @@ nextflow_workflow {
                 { assert file("$outputDir/mageck/count/count_table.count.txt").exists() },
                 { assert !file("$outputDir/crisprdecode").exists() },
                 { assert file("$outputDir/multiqc/multiqc_report.html").exists() },
-                { assert snapshot(file("$outputDir/pipeline_info/nf_core_crisprseq_software_mqc_versions.yml")).match() }
+                {
+                    def versions = path("$outputDir/pipeline_info/nf_core_crisprseq_software_mqc_versions.yml").yaml
+                    assert versions.Workflow['nf-core/crisprseq']
+                    assert versions.Workflow.Nextflow
+                    // Compare software versions as data; workflow metadata can vary across revisions/runtimes.
+                    assert snapshot(versions.findAll { name, value -> name != 'Workflow' }).match()
+                }
             )
         }
     }
