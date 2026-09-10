@@ -232,6 +232,35 @@ class CrisprdecodePairedGuideTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("R1 offset must be non-negative", result.stderr)
 
+    def test_duplicate_required_headers_fail_validation(self) -> None:
+        columns = ["construct_id", "target_id", "spacer_r1", "spacer_r2"]
+        for column in columns:
+            with self.subTest(column=column):
+                self.library.write_text(
+                    "\t".join([*columns, column])
+                    + "\n"
+                    + "\t".join(["construct_a", "GENE_A", "AAAAA", "CCCCC", "AAAAA"])
+                    + "\n"
+                )
+                result = self.run_script(
+                    VALIDATE,
+                    "--library",
+                    self.library,
+                    "--output",
+                    self.validated,
+                    check=False,
+                )
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("duplicate column name(s): " + column, result.stderr)
+
+    def test_extra_unique_metadata_column_remains_supported(self) -> None:
+        self.library.write_text(
+            "construct_id\ttarget_id\tspacer_r1\tspacer_r2\tnote\n"
+            "construct_a\tGENE_A\tAAAAA\tCCCCC\tannotation\n"
+        )
+        self.validate_library()
+        self.assertEqual(read_tsv(self.validated)[0]["construct_id"], "construct_a")
+
     def test_duplicate_construct_id_fails_validation(self) -> None:
         self.library.write_text(
             "construct_id\ttarget_id\tspacer_r1\tspacer_r2\n"

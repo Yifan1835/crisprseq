@@ -25,6 +25,14 @@ def load_library(path: Path) -> list[dict[str, str]]:
         reader = csv.DictReader(handle, delimiter="\t")
         if reader.fieldnames is None:
             raise ValueError("construct library is empty")
+        duplicate_columns = sorted(
+            column for column, count in Counter(reader.fieldnames).items() if count > 1
+        )
+        if duplicate_columns:
+            raise ValueError(
+                "construct library has duplicate column name(s): "
+                + ", ".join(duplicate_columns)
+            )
         missing = [
             column for column in REQUIRED_COLUMNS if column not in reader.fieldnames
         ]

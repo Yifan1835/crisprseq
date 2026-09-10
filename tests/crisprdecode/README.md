@@ -17,3 +17,5 @@ Run the Python tests with:
 ```bash
 python3 -m unittest discover -s tests/crisprdecode -v
 ```
+
+For the fixed collaborator test version, GitHub Actions instructions and feedback template, see [COLLABORATOR_TESTING.md](COLLABORATOR_TESTING.md).
