@@ -48,7 +48,7 @@ nextflow_workflow {
                     assert versions.Workflow['nf-core/crisprseq']
                     assert versions.Workflow.Nextflow
                     // Compare software versions as data; workflow metadata can vary across revisions/runtimes.
-                    assert snapshot(versions.findAll { name, value -> name != 'Workflow' }).match()
+                    assert snapshot(new TreeMap(versions.findAll { name, value -> name != 'Workflow' })).match()
                 }
             )
         }
@@ -89,7 +89,7 @@ nextflow_workflow {
                     assert versions.Workflow['nf-core/crisprseq']
                     assert versions.Workflow.Nextflow
                     // Compare software versions as data; workflow metadata can vary across revisions/runtimes.
-                    assert snapshot(versions.findAll { name, value -> name != 'Workflow' }).match()
+                    assert snapshot(new TreeMap(versions.findAll { name, value -> name != 'Workflow' })).match()
                 }
             )
         }

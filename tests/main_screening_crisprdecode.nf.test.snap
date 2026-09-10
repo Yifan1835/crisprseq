@@ -2,13 +2,13 @@
     "Test paired-guide CRISPRDecode screening wiring": {
         "content": [
             {
-                "CRISPRDECODE_VALIDATE_LIBRARY": {
+                "CRISPRDECODE_AGGREGATE": {
                     "python": "3.11.4"
                 },
                 "CRISPRDECODE_ASSIGN": {
                     "python": "3.11.4"
                 },
-                "CRISPRDECODE_AGGREGATE": {
+                "CRISPRDECODE_VALIDATE_LIBRARY": {
                     "python": "3.11.4"
                 },
                 "FASTQC": {
