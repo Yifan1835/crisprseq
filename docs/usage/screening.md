@@ -57,6 +57,8 @@ An [example](https://github.com/nf-core/test-datasets/blob/crisprseq/testdata/br
 
 ### Paired-guide construct counting with CRISPRDecode
 
+Start with the [step-by-step CRISPRDecode tutorial](crisprdecode_tutorial.md) for a runnable example, larger synthetic test, read-geometry explanation, and troubleshooting. Use the supplied CRISPRDecode checkout; the example below runs that local checkout from its root.
+
 Use `--screening_count_method crisprdecode` to count paired-guide constructs by exact matching of one guide element from each read in a synchronized paired-end FASTQ pair. This option requires paired-end input and cannot be combined with `--bowtie`. The default `--screening_count_method mageck` retains the existing single-guide counting path.
 
 The CRISPRDecode construct library must be a headered, tab-separated file:
@@ -74,7 +76,7 @@ By default, each spacer is extracted from position zero of its read. Use `--cris
 For example:
 
 ```bash
-nextflow run nf-core/crisprseq \
+nextflow run . \
     --analysis screening \
     --input samplesheet.csv \
     --library construct_library.tsv \

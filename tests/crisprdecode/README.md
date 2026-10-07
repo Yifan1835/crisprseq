@@ -1,5 +1,7 @@
 # CRISPRDecode paired-guide test data
 
+**New users:** start with the [step-by-step tutorial](../../docs/usage/crisprdecode_tutorial.md). It includes a small first run and a 6-million-read-pair, 10,000-construct benchmark with exact truth checks.
+
 These files are a fully synthetic, distributable truth set created for the nf-core/crisprseq test suite. They do not contain collaborator or biological sequencing data.
 They can be reproduced with `python3 tests/crisprdecode/generate_fixtures.py`.
 

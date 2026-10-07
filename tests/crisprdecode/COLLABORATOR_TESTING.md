@@ -1,5 +1,7 @@
 # CRISPRDecode collaborator test release
 
+**Looking for a tutorial?** Start with [CRISPRDecode: first run and a larger test](../../docs/usage/crisprdecode_tutorial.md). This page describes the September 2026 developer/CI test release; its fixed version does not automatically include the newer tutorial or scale benchmark.
+
 This test release covers paired-end, paired-guide decoding without UMI/iBAR processing. It includes the duplicate-TSV-header validation fix and explicit Docker Hub images with the process tools required by Nextflow. It is not a full real-data or production validation of the pipeline.
 
 ## Fixed version
