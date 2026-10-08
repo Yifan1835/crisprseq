@@ -4,7 +4,8 @@ order: 2
 
 # nf-core/crisprseq: Usage
 
-## :warning: Please read this documentation on the nf-core website: [https://nf-co.re/crisprseq/usage](https://nf-co.re/crisprseq/usage)
+For the CRISPRDecode test integration, start with the [step-by-step tutorial](crisprdecode_tutorial.md).
+For upstream nf-core/crisprseq, use the [nf-core usage documentation](https://nf-co.re/crisprseq/usage).
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
@@ -12,9 +13,16 @@ order: 2
 
 The **nf-core/crisprseq** pipeline allows the analysis of CRISPR edited CRISPR pooled DNA. It can evaluate important genes from knock-out or activation CRISPR-Cas9 screens.
 
+## Choose the counting mode
+
+| Screening mode | Read input | Library format | Start here |
+| --- | --- | --- | --- |
+| Default MAGeCK counting | R1 required; R2 optional | Three columns: guide ID, sequence, gene | General instructions below |
+| CRISPRDecode paired-guide counting | Both synchronized R1 and R2 required | Headered TSV: `construct_id`, `target_id`, `spacer_r1`, `spacer_r2` | [CRISPRDecode tutorial](crisprdecode_tutorial.md) |
+
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows:
+For the default upstream counting route, the typical command is:
 
 ```bash
 nextflow run nf-core/crisprseq --analysis screening --input samplesheet.csv --library library.tsv --outdir <OUTDIR> -profile docker
@@ -24,6 +32,9 @@ The following required parameters are here described.
 If you wish to input a raw count or normalized table, you can skip the samplesheet parameter as well as the library one and directly input your table using count_table `--count_table your_count_table`. Your count table should contain the following columns : sgRNA and gene. You can find an example [here](https://github.com/nf-core/test-datasets/blob/crisprseq/testdata/count_table.tsv) If your count table is normalized, be sure to set the normalization method to none in MAGeCK MLE or MAGeCK RRA using a config file.
 
 ### Full samplesheet
+
+The example below is single-end input for the default MAGeCK route. For
+CRISPRDecode, populate both FASTQ columns; see the [paired-end example](crisprdecode_tutorial.md#4-replace-the-synthetic-inputs-with-your-own-data).
 
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 4 columns to match those defined in the table below.
 
@@ -37,7 +48,7 @@ SRR8983580,SRR8983580.small.fastq.gz,,treatment
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample`    | Custom sample name. Spaces in sample names are automatically converted to underscores (`_`).                                          |
 | `fastq_1`   | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".            |
-| `fastq_2`   | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz". (Optional) |
+| `fastq_2`   | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz". (Optional for MAGeCK; required for CRISPRDecode) |
 | `condition` | Condition of the sample, for instance "treatment" or "control".                                                                       |
 
 An [example samplesheet](https://github.com/nf-core/test-datasets/blob/crisprseq/testdata/samplesheet_test.csv) has been provided with the pipeline.
@@ -51,6 +62,9 @@ MAGeCK count which is the main alignment software used is normally able to autom
 The MAGeCK count module supports bam files, which allows you to align with bowtie2 first. If you wish to do so (for instance to allow mapping reads to the library with mismatches or to set the aligner with specific flags) you can use the flag `--bowtie`. The reference FASTA for the mapping is created automatically from the library file provided with `--library`.
 
 ### library
+
+**The three-column format in this paragraph applies to default MAGeCK counting.**
+For CRISPRDecode, use the four-column headered construct library in the next section.
 
 If you are running the pipeline with fastq files and wish to obtain a count table, the library parameter is needed. The library table has three mandatory columns : id, target transcript (or gRNA sequence) and gene symbol.
 An [example](https://github.com/nf-core/test-datasets/blob/crisprseq/testdata/brunello_target_sequence.txt) has been provided with the pipeline. Many libraries can be found on [addgene](https://www.addgene.org/).

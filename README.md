@@ -1,3 +1,27 @@
+# CRISPRDecode: start here
+
+This fork of **nf-core/crisprseq** contains a CRISPRDecode test integration for
+counting paired-guide constructs from paired-end FASTQs. Each construct is a
+library row containing two guide sequences. This test version uses exact matches
+and supports libraries **without UMI/iBAR**; prime-editing library decoding and
+UMI deduplication are outside its scope.
+
+**[Open the step-by-step CRISPRDecode tutorial](https://github.com/Yifan1835/crisprseq/blob/test/crisprdecode-20260910/docs/usage/crisprdecode_tutorial.md)** —
+download the correct version, run a small example, and understand the results.
+
+The feature and tutorial live on branch `test/crisprdecode-20260910`.
+The default `master` branch provides this entry point; use the tutorial's clone
+command to obtain the test code.
+[CRISPRDecode CI runs](https://github.com/Yifan1835/crisprseq/actions/workflows/crisprdecode-collaborator.yml?query=branch%3Atest%2Fcrisprdecode-20260910)
+cover Python tests, synthetic Nextflow decoding, and stub routing checks.
+The larger synthetic benchmark is a separate tutorial step.
+
+The documentation and badges below describe upstream nf-core/crisprseq,
+whose broader capabilities and test results should be read separately from
+this CRISPRDecode test integration.
+
+---
+
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-crisprseq_logo_dark.png">
